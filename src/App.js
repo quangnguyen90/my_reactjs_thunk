@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { connect } from 'react-redux';
+import { fetchData } from './actions';
+
+let styles;
+
+const App = (props) => {
+  const {container, text, button, buttonText} = styles
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={container}>
+      <div style={text}>Redux Examples</div>
+      <div style={button}>
+        <div style={buttonText}>Load Data</div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+styles = {
+  container: {
+    marginTop: 100
+  },
+  text: {
+    textAlign: 'center'
+  },
+  button: {
+    display: 'flex',
+    minHeight: 60,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0b7eff'
+  },
+  buttonText: {
+    color: 'white'
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    appData: state.appData
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchData: () => dispatch(fetchData())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
