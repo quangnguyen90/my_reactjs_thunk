@@ -11,8 +11,21 @@ const App = (props) => {
   return (
     <div style={container}>
       <div style={text}>Redux Examples</div>
-      <div style={button}>
-        <div style={buttonText}>Load Data</div>
+      <div style={button} onClick={() => props.fetchData()}>
+        <div style={buttonText}>
+          {
+            props.appData.isFetching && <div>Loading</div>
+          }
+          {
+            props.appData.data.length ? (
+              props.appData.data.map((person, i) => {
+                return <div key={i}>
+                  <div>Name: {person.name} - Age: {person.age}</div>
+                </div>
+              })
+            ) : 'Load data'
+          }
+        </div>
       </div>
     </div>
   )
